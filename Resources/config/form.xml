@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the RPSContactBundle package.
+
+ (c) Yos Okusanya <yos.okus@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="rps_contact.form.contact.type" class="%rps_contact.form.contact.class%">
+            <tag name="form.type" alias="rps_contact_contact" />
+            <argument>%rps_contact.model.contact.class%</argument>
+        </service>
+
+        <service id="rps_contact.form_factory.contact" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
+            <argument>%rps_contact.form.contact.name%</argument>
+            <argument>%rps_contact.form.contact.type%</argument>
+            <argument>null</argument>
+        </service>
+    </services>
+
+</container>

@@ -1,0 +1,87 @@
+#
+# This file is part of the RPSContactBundle package.
+#
+# (c) Yos Okusanya <yos.okus@gmail.com>
+#
+# This source file is subject to the MIT license that is bundled
+# with this source code in the file LICENSE.
+
+rps_contacts:               Contacts
+toggle_navigation:          Toggle navigation
+confirm_contact_remove:     Are you sure you want to delete this contact.
+confirm_contacts_delete:    Are you sure you want to delete these contacts.
+
+#titles
+title:
+    contact:                Contact
+    my_contacts:            My Contacts
+    add_contact:            Add Contact
+    new_contact:            New Contact
+    edit_contact:           Edit Contact
+
+link:
+    home:                   Home
+    new:                    New
+    add:                    Add
+    edit:                   Edit
+    cancel:                 Cancel
+    back:                   Back
+    remove:                 Delete
+    delete:                 Delete
+
+#messages
+flash:
+    save:
+        success:            Contact saved
+        error:              Error saving contact
+
+    remove:
+        success:            Contact deleted
+        error:              Error deleting contact with id %id%
+
+    update:
+        success:            Contact updated
+        error:              Error updating contact with id %id%
+
+    delete:
+        success:            "{1} %count% contact deleted|[2,Inf] %count% contacts deleted"
+        error:              Error publishing contacts with id (%ids%)
+
+    error:
+        bad_request:        "Error: Bad request"
+        file_upload:        Error uploading file
+        format_not_supported: Image format not supported
+
+    select_error:
+        delete:             You must select at least one contact to delete.
+
+
+#form fields
+form:
+    first_name:             First Name
+    last_name:              Last Name
+    phone:                  Phone
+    email:                  Email
+    facebook:               Facebook
+    twitter:                Twitter
+    facebook_uid:           Facebook User id
+    facebook_username:      Facebook Username
+    gplus_uid:              Google+ User id
+    gplus_username:         Google+ Username
+    twitter_username:       Twitter Username
+    avatar:                 Avatar
+    save:                   Save
+    save_and_new:           Save & New
+
+show:
+    first_name:             First Name
+    last_name:              Last Name
+    phone:                  Phone
+    email:                  Email
+    facebook:               Facebook
+    twitter:                Twitter
+    facebook_uid:           Facebook User id
+    facebook_username:      Facebook Username
+    gplus_uid:              Google+ User id
+    gplus_username:         Google+ Username
+    twitter_username:       Twitter Username

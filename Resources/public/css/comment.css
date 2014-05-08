@@ -1,0 +1,25 @@
+
+body {padding-top: 70px;}
+.row-padded-top{margin-top:10px;}
+.row-padded-bottom{margin-bottom:10px;}
+
+/* ---- frontend/list ---- */
+.rps-comment-panel-container .rps-comment-author{
+	font-weight:bold;
+}
+
+.rps-comment-panel-container .rps-comment-date{
+	font-size: 12px;
+	padding-left: 5px;
+}
+
+/* ---- forms ----*/
+.rps-comment-form .form-btns{
+	margin-top:15px;
+	margin-bottom:10px;
+}
+
+/* ---- admin/list ---- */
+.rps-comment-admin-list table tbody tr td{
+	vertical-align:middle;
+}

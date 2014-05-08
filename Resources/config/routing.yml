@@ -1,0 +1,57 @@
+#
+# This file is part of the RPSContactBundle package.
+#
+# (c) Yos Okusanya <yos.okus@gmail.com>
+#
+# This source file is subject to the MIT license that is bundled
+# with this source code in the file LICENSE.
+
+rps_contact_list:
+    pattern:  /contact/{page}
+    defaults: { _controller: RPSContactBundle:Contact:index, page: 1 }
+    requirements:
+        page: \d+
+
+rps_contact_cancel:
+    pattern: /contact/cancel
+    defaults: { _controller: RPSContactBundle:Contact:redirectToList }
+
+rps_contact_new:
+    pattern: /contact/new
+    defaults: { _controller: RPSContactBundle:Contact:add }
+
+rps_contact_add:
+    pattern: /contact/add
+    defaults: { _controller: RPSContactBundle:Contact:add }
+    methods: [POST]
+
+rps_contact_edit:
+    pattern: /contact/edit/{id}
+    defaults: { _controller: RPSContactBundle:Contact:edit }
+    requirements:
+        id: \d+
+
+rps_contact_delete:
+    pattern: /contact/delete
+    defaults: { _controller: RPSContactBundle:Contact:delete }
+    methods: [POST]
+
+rps_contact_remove:
+    pattern: /contact/remove/{id}
+    defaults: { _controller: RPSContactBundle:Contact:remove }
+    methods: [GET]
+    requirements:
+        page: \d+
+
+rps_contact_show:
+    pattern: /contact/view/{id}
+    defaults: { _controller: RPSContactBundle:Contact:show }
+    requirements:
+        id: \d+
+
+#--- delete ---
+rps_contact_user_delete:
+    pattern: /contact/test/userdelete/{id}
+    defaults: { _controller: RPSContactBundle:Test:deleteUser }
+    requirements:
+        id: \d+

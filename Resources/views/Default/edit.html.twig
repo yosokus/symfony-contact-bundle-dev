@@ -1,0 +1,30 @@
+{#
+
+ This file is part of the RPSContactBundle package.
+
+ (c) Yos Okusanya <yos.okus@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+#}
+
+{% extends 'RPSContactBundle:Default:layout.html.twig' %}
+
+{% block title 'title.edit_contact'|trans({}, 'RPSContactBundle') %}
+
+{% block content %}
+
+    {{ form_start(form, {'action': path('rps_contact_edit', {'id': id}), 'method': 'POST', 'class': 'rps-contact-form', 'attr': {'class': 'form-horizontal rps-contact-form'} }) }}
+
+        <div class="form-btns">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_widget(form.saveAndNew, {'attr': {'class': 'btn btn-info'}}) }}
+            <a class="btn btn-danger" href="{{ path('rps_contact_cancel') }}">{{ 'link.cancel'|trans({}, 'RPSContactBundle') }}</a>
+        </div>
+
+        {{ form_widget(form) }}
+
+        <input type="hidden" name="id" value="{{ id }}" />
+
+    {{ form_end(form) }}
+{% endblock %}

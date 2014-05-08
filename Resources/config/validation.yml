@@ -1,0 +1,93 @@
+#
+# This file is part of the RPSContactBundle package.
+#
+# (c) Yos Okusanya <yos.okus@gmail.com>
+#
+# This source file is subject to the MIT license that is bundled
+# with this source code in the file LICENSE.
+
+RPS\ContactBundle\Model\Contact:
+    properties:
+        fname:
+            - NotBlank:
+                message: rps_contact.fname.blank
+            - Length:
+                min: 3
+                max: 100
+                minMessage: rps_contact.fname.short
+                maxMessage: rps_contact.fname.long
+
+        lname:
+            - Length:
+                max: 100
+                maxMessage: rps_contact.lname.long
+
+        phone:
+            - Length:
+                max: 32
+                maxMessage: rps_contact.lname.long
+            - Regex:
+                pattern: "/^[\d+\(\)ext#\s-]+$/"
+                message: rps_contact.phone.invalid
+
+        email:
+            - Email:
+                message: rps_contact.email.invalid
+            - Length:
+                max: 100
+                maxMessage: rps_contact.email.long
+
+        twitterUsername:
+            - Length:
+                min: 2
+                max: 20
+                minMessage: rps_contact.twitter_username.short
+                maxMessage: rps_contact.twitter_username.long
+            - Regex:
+                pattern: "/^[\w]+$/"
+                message: rps_contact.twitter_username.invalid
+
+        facebookUsername:
+            - Length:
+                min: 2
+                max: 50
+                minMessage: rps_contact.facebook_username.short
+                maxMessage: rps_contact.facebook_username.long
+
+        facebookUid:
+            - Length:
+                min: 2
+                max: 24
+                minMessage: rps_contact.facebook_uid.short
+                maxMessage: rps_contact.facebook_uid.long
+            - Regex:
+                pattern: "/^[\d]+$/"
+                message: rps_contact.facebook_uid.invalid
+
+        gplusUsername:
+            - Length:
+                min: 2
+                max: 32
+                minMessage: rps_contact.gplus_username.short
+                maxMessage: rps_contact.gplus_username.long
+
+        gplusUid:
+            - Length:
+                min: 2
+                max: 21
+                minMessage: rps_contact.gplus_uid.short
+                maxMessage: rps_contact.gplus_uid.long
+            - Regex:
+                pattern: "/^[\d]+$/"
+                message: rps_contact.gplus_uid.invalid
+
+        avatar:
+            - Image:
+                minWidth: 100
+                maxWidth: 400
+                minHeight: 100
+                maxHeight: 400
+                minWidthMessage: rps_contact.avatar.width.short
+                maxWidthMessage: rps_contact.avatar.width.long
+                minHeightMessage: rps_contact.avatar.height.short
+                maxHeightMessage: rps_contact.avatar.height.long

@@ -1,0 +1,56 @@
+#
+# This file is part of the RPSContactBundle package.
+#
+# (c) Yos Okusanya <yos.okus@gmail.com>
+#
+# This source file is subject to the MIT license that is bundled
+# with this source code in the file LICENSE.
+
+rps_contact:
+    fname:
+        blank:      Please enter a first name
+        short:      "Your first name must be at least {{ limit }} characters long"
+        long:       "Your first name cannot be longer than {{ limit }} characters"
+
+    lname:
+        short:      "Your last name must be at least {{ limit }} characters long"
+        long:       "Your last name cannot be longer than {{ limit }} characters"
+
+    phone:
+        long:       "Your phone number cannot be longer than {{ limit }} characters"
+        invalid:    Please enter a valid phone number (0-9, +, -, () and ext only)
+
+    email:
+        long:       "Your email cannot be longer than {{ limit }} characters"
+        invalid:    Please enter a valid email
+
+    twitter_username:
+        short:      "Your twitter username must be at least {{ limit }} characters long"
+        long:       "Your twitter username cannot be longer than {{ limit }} characters"
+        invalid:    Please enter a valid twitter username
+
+    facebook_username:
+        short:      "Your facebook username must be at least {{ limit }} characters long"
+        long:       "Your facebook username cannot be longer than {{ limit }} characters"
+
+    facebook_uid:
+        short:      "Your facebook userid must be at least {{ limit }} characters long"
+        long:       "Your facebook userid cannot be longer than {{ limit }} characters"
+        invalid:    Please enter a valid facebook user id
+
+    gplus_username:
+        short:      "Your Google+ Username must be at least {{ limit }} characters long"
+        long:       "Your Google+ Username cannot be longer than {{ limit }} characters"
+
+    gplus_uid:
+        short:      "Your Google+ Username must be at least {{ limit }} characters long"
+        long:       "Your Google+ Username cannot be longer than {{ limit }} characters"
+        invalid:    Please enter a valid google plus user id
+
+    avatar:
+        width:
+            short:  "Minimum width allowed is {{ min_width }}px. Uploaded image width is {{ width }}px."
+            long:   "Maximum width allowed is {{ max_width }}px. Uploaded image width is {{ width }}px."
+        height:
+            short:  "Minimum height allowed is {{ min_height }}px. Uploaded image height is {{ height }}px."
+            long:   "Maximum height allowed is {{ max_height }}px. Uploaded image height is {{ height }}px."

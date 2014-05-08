@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the RPSContactBundle package.
+
+ (c) Yos Okusanya <yos.okus@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="rps_contact.model.contact.class">RPS\ContactBundle\Entity\Contact</parameter>
+        <parameter key="rps_contact.manager.contact.class">RPS\ContactBundle\Entity\ContactManager</parameter>
+        <parameter key="rps_contact.pager.class">RPS\CoreBundle\Pager\PagerfantaORM</parameter>
+    </parameters>
+
+    <services>
+        <!-- Entity manager -->
+        <service id="rps_contact.entity_manager" alias="doctrine.orm.default_entity_manager" />
+
+        <!-- Contact Manager -->
+        <service id="rps_contact.contact_manager" class="%rps_contact.manager.contact.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="rps_contact.entity_manager" />
+            <argument>%rps_contact.model.contact.class%</argument>
+            <call method="setPager">
+                <argument type="service" id="rps_contact.pager" on-invalid="null" />
+            </call>
+        </service>
+    </services>
+
+</container>

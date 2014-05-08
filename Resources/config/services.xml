@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+ This file is part of the RPSContactBundle package.
+
+ (c) Yos Okusanya <yos.okus@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="rps_contact.class.twig_extension">RPS\ContactBundle\Twig\ContactExtension</parameter>
+        <parameter key="rps_contact.listener.user.class">RPS\ContactBundle\EventListener\UserListener</parameter>
+        <parameter key="rps_contact.default_avatar">bundles/rpscontact/images/avatar.png</parameter>
+    </parameters>
+
+    <services>
+        <!-- Pager -->
+        <service id="rps_contact.pager.pagerfanta" class="%rps_contact.pager.class%">
+            <argument type="service" id="twig.extension.pagerfanta" on-invalid="null" />
+        </service>
+
+        <!--twig extension -->
+        <service id="twig.extension.rps_contact" class="RPS\ContactBundle\Twig\ContactExtension" public="false">
+            <tag name="twig.extension" />
+            <argument type="service" id="service_container" />
+            <argument>%rps_contact.model.contact.class%</argument>
+            <argument>%rps_contact.default_avatar%</argument>
+        </service>
+
+        <!-- Event listener -->
+        <service id="rps_contact.listener.user_preremove" class="%rps_contact.listener.user.class%">
+            <tag name="doctrine.event_listener" event="preRemove" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="logger" on-invalid="null" />
+        </service>
+    </services>
+
+</container>

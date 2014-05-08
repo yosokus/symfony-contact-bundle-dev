@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ This file is part of the RPSContactBundle package.
+
+ (c) Yos Okusanya <yos.okus@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+-->
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="RPS\ContactBundle\Entity\Contact" table="rps_contacts">
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="preSave" />
+            <lifecycle-callback type="preUpdate" method="preSave" />
+            <lifecycle-callback type="postPersist" method="postSave" />
+            <lifecycle-callback type="postUpdate" method="postSave" />
+            <lifecycle-callback type="preRemove" method="preRemove" />
+            <lifecycle-callback type="postRemove" method="postRemove" />
+        </lifecycle-callbacks>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="userId" column="user_id" type="integer" nullable="false" />
+        <field name="fname" column="fname" type="string" length="50" nullable="false" />
+        <field name="lname" column="lname" type="string" length="50" nullable="true" />
+        <field name="phone" column="phone" type="string" length="32" nullable="true" />
+        <field name="email" column="email" type="string" length="100" nullable="true" />
+        <field name="twitterUsername" column="twitter_username" type="string" length="32" nullable="true" />
+        <field name="facebookUsername" column="facebook_username" type="string" length="64" nullable="true" />
+        <field name="facebookUid" column="facebook_uid" type="string" length="24" nullable="true" />
+        <field name="gplusUsername" column="gplus_username" type="string" length="64" nullable="true" />
+        <field name="gplusUid" column="gplus_uid" type="string" length="24" nullable="true" />
+        <field name="imagePath" column="image_path" type="string" length="32" nullable="true" />
+    </entity>
+
+</doctrine-mapping>

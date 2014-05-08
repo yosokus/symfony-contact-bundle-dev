@@ -1,0 +1,121 @@
+{#
+
+ This file is part of the RPSContactBundle package.
+
+ (c) Yos Okusanya <yos.okus@gmail.com>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+#}
+
+{% extends 'RPSContactBundle:Default:layout.html.twig' %}
+
+{% block content_title %}
+    <h2>{{ contact.fname ~ ' ' ~ contact.lname |trim() }}</h2>
+{% endblock %}
+{#
+{% block content_title %}
+    <h2>
+        {{ contact.fname }}
+        {% if contact.lname %}{{ contact.lname }}{% endif %}
+    </h2>
+{% endblock %}
+#}
+
+{% block content %}
+<div class="rps-contact-wrapper">
+    <div class="row row-padded-top">
+        <div class="btn-toolbar">
+            <a class="btn btn-info" href="{{ path( 'rps_contact_cancel') }}">{{ 'back'|trans({}, 'RPSContactBundle') }}</a>
+            <a class="btn btn-warning" href="{{ path( 'rps_contact_edit', {'id': contact.id} ) }}">{{ 'edit'|trans({}, 'RPSContactBundle') }}</a>
+            <a class="btn btn-danger" href="{{ path( 'rps_contact_remove', {'id': contact.id} ) }}" onclick="return confirm('{{ 'confirm_contact_remove'|trans({}, 'RPSContactBundle') }}')">{{ 'Delete'|trans({}, 'RPSContactBundle') }}</a>
+        </div>
+    </div>
+
+    <div class="row row-padded-top">
+        <div class="rps-contact-avatar">
+            {% if filter_image %}
+                <img src="{{ rps_get_avatar( contact.imagePath, false ) | imagine_filter('rps_contact_avatar', false) }}"/>
+            {% else %}
+                <img src="{{ rps_get_avatar( contact.imagePath )  }}"/>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row row-padded-top">
+        <div class="rps-contact-info">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.first_name'|trans({}, 'RPSContactBundle') }}</td>
+                        <td>{{ contact.fname }}</td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.last_name'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">{{ contact.lname }}</td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.phone'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">{{ contact.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.email'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">{{ contact.email }}</td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.facebook_username'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">
+                            {% if(contact.facebookUsername) %}
+                                <a href="http://www.facebook.com/{{ contact.facebookUsername }}">
+                                    <i class="fa fa-external-link fa-fw"></i> {{ contact.facebookUsername }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.facebook_uid'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">
+                            {% if(contact.facebookUid) %}
+                                <a href="http://www.facebook.com/profile.php?id={{ contact.facebookUid }}">
+                                    <i class="fa fa-external-link fa-fw"></i> {{ contact.facebookUid }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.twitter'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">
+                            {% if(contact.twitterUsername) %}
+                                <a href="https://twitter.com/{{ contact.twitterUsername }}">
+                                    <i class="fa fa-external-link fa-fw"></i> {{ contact.twitterUsername }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.gplus_username'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">
+                            {% if(contact.gplusUsername) %}
+                                <a href="https://plus.google.com/{{ contact.gplusUsername }}">
+                                    <i class="fa fa-external-link fa-fw"></i> {{ contact.gplusUsername }}
+                                </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="rps-contact-label">{{ 'form.gplus_uid'|trans({}, 'RPSContactBundle') }}</td>
+                        <td class="rps-contact-value">
+                            {% if(contact.gplusUid) %}
+                                <a href="https://plus.google.com/{{ contact.gplusUid }}">
+                                    <i class="fa fa-external-link fa-fw"></i> {{ contact.gplusUid }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
