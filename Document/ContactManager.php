@@ -119,90 +119,6 @@ class ContactManager extends AbstractContactManager
             $queryBuilder->field('userId')->equals((int)$criteria['userId']);
         }
 
-            #$regex = '/.*' . $criteria['name'] . '.*/i';
-            #$regex = '/^' . $criteria['name'] . '.*/i';
-/*
-        // set name
-        if(isset($criteria['name'])) {
-            // anchor search to start of string to improve performance
-            $regex = '/^' . $criteria['name'] . '/i';
-
-            $queryBuilder->addAnd(
-                $queryBuilder->expr()->addOr(
-                    $queryBuilder->expr()->field('fname')->operator('$regex', $regex),
-                    $queryBuilder->expr()->field('lname')->operator('$regex', $regex)
-                )
-            )
-        }
-*/
-
-        // set name
-        if(isset($criteria['name'])) {
-            // anchor search to start of string to improve performance
-            $regex = '/^' . $criteria['name'] . '/i';
-
-            $queryBuilder->addAnd(
-                $queryBuilder->expr()->addOr(
-                    $queryBuilder->expr()->field('fname')->operator('$regex', $regex),
-                    $queryBuilder->expr()->field('lname')->operator('$regex', $regex)
-                )
-            );
-        }
-
-        // set name
-        if(isset($criteria['name'])) {
-            // trim excess space
-            $criteria['name'] = trim(preg_replace( '/\s+/', ' ', $criteria['name'] ));
-
-            $names = explode (" ", $criteria['name']);
-            $regex = '/^' . $criteria['name'] . '/i';
-
-            if (count($names) == 1) {
-                $queryBuilder->addAnd(
-                    $queryBuilder->expr()->addOr(
-                        $queryBuilder->expr()->field('fname')->operator('$regex', $regex),
-                        $queryBuilder->expr()->field('lname')->operator('$regex', $regex)
-                    )
-                );
-
-            } else {
-                $firstNameRegex = '/^' . $names[0] . '/i';
-                $lastNameRegex = '/^' . $names[1] . '/i';
-
-                $queryBuilder->addAnd(
-                    $queryBuilder->expr()->addOr(
-                        $queryBuilder->expr()
-                            ->field('fname')
-                            ->operator('$regex', $firstNameRegex),
-                        $queryBuilder->expr()
-                            ->field('lname')
-                            ->operator('$regex', $lastNameRegex)
-                    )
-                );
-
-                $queryBuilder->addAnd(
-                    $queryBuilder->expr()->addAnd(
-                        $queryBuilder->expr()->addOr(
-                            $queryBuilder->expr()
-                                ->field('fname')
-                                ->operator('$regex', $firstNameRegex),
-                            $queryBuilder->expr()
-                                ->field('fname')
-                                ->operator('$regex', $lastNameRegex)
-                        ),
-                        $queryBuilder->expr()->addOr(
-                            $queryBuilder->expr()
-                                ->field('lname')
-                                ->operator('$regex', $regex),
-                            $queryBuilder->expr()
-                                ->field('lname')
-                                ->operator('$regex', $regex)
-                        )
-                    )
-                );
-            }
-        }
-
         // set ordering
         $sorting = array();
         if(isset($criteria['order'])) {
@@ -250,27 +166,19 @@ class ContactManager extends AbstractContactManager
     /**
      * {@inheritDoc}
      */
-    public function getImages($ids, $path)
+    public function getImages($ids)
     {
         $queryBuilder = $this->repository->createQueryBuilder()
             ->select("imagePath")
+            ->hydrate(false)
             ->field('id')->in($ids)
             ->field('userId')->equals($this->getUserId())
             ->field('imagePath')->exits(true)
             ->field('imagePath')->notIn(array('', null));
-            #->field('imagePath')->notEqual(null)
-            #->field('imagePath')->notIn('');
 
-        $contacts = $queryBuilder->getQuery()->execute();
+        return $queryBuilder->getQuery()->toArray();
 
-        $images = array();
-
-        foreach($contacts as $contact) {
-            $images[] = $path . '/' . $contact->getImagePath();
-        }
-
-        return $images;
-
+        //return iterator_to_array($queryBuilder->getQuery()->execute());
     }
 
 }
