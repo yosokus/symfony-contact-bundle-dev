@@ -5,7 +5,7 @@ A simple yet extensible user contact package based on Doctrine2 (ORM and MongoDB
 ##Features
 
 - Compatible with Doctrine ORM **and** ODM.
-- Extensible model
+- Extensible models
 - Extensible through events fired during the contact lifecycle
 - Integration with [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
 - Optional integration with [WhiteOctoberPagerfantaBundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle‎)

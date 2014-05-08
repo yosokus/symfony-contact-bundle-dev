@@ -3,10 +3,10 @@ Image Manager
 
 The RPSContactBundle uses the ``LiipImagineBundle`` to resize images on the fly.
 
-If the ``LiipImagineBundle`` is not installed, the RPSContactBundle will not resize images.
-
 To use ``LiipImagineBundle`` as the image manager , you must install the LiipImagineBundle_
 and configure it properly (see the docs for more information).
+
+If the ``LiipImagineBundle`` is not installed, the RPSContactBundle will not resize images.
 
 .. _LiipImagineBundle: https://github.com/liip/LiipImagineBundle
 
@@ -56,7 +56,7 @@ See the `LiipImagineBundle Configuration documentation`_ for other available con
 Using a custom Image Manager
 ----------------------------
 
-1. Create a custom image manager or use an existing image manage bundle (e.g. ``ElendevImageBundle``).
+1. Create a custom image manager (or use an existing image manage bundle e.g. ``ElendevImageBundle``).
 
 #. Your image manager **must** use a custom twig extension and a custom twig filter to resize images
 on the fly.
