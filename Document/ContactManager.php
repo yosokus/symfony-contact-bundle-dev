@@ -173,12 +173,9 @@ class ContactManager extends AbstractContactManager
             ->hydrate(false)
             ->field('id')->in($ids)
             ->field('userId')->equals($this->getUserId())
-            ->field('imagePath')->exits(true)
-            ->field('imagePath')->notIn(array('', null));
+            ->field('imagePath')->exits(true);
 
-        return $queryBuilder->getQuery()->toArray();
-
-        //return iterator_to_array($queryBuilder->getQuery()->execute());
+        return $queryBuilder->getQuery()->execute();
     }
 
 }
