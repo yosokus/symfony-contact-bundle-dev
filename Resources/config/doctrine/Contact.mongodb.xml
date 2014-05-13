@@ -20,13 +20,10 @@
             <lifecycle-callback type="preUpdate" method="setModifiedValue" />
         </lifecycle-callbacks>
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
-
+        <field fieldName="id" id="true" />
         <field name="userId" column="userId" type="integer" nullable="false" />
-        <field name="fname" column="fname" type="string" length="50" nullable="false" />
-        <field name="lname" column="lname" type="string" length="50" nullable="true" />
+        <field name="firstName" column="firstName" type="string" length="50" nullable="false" />
+        <field name="lastName" column="lastName" type="string" length="50" nullable="true" />
         <field name="phone" column="phone" type="string" length="32" nullable="true" />
         <field name="email" column="email" type="string" length="100" nullable="true" />
         <field name="twitterUsername" column="twitterUsername" type="string" length="32" nullable="true" />
