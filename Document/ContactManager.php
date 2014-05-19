@@ -116,7 +116,8 @@ class ContactManager extends AbstractContactManager
 
         // set userId
         if(isset($criteria['userId'])) {
-            $queryBuilder->field('userId')->equals((int)$criteria['userId']);
+            #$queryBuilder->field('userId')->equals($criteria['userId']);
+            $queryBuilder->field('userId')->equals($this->getUserIdObject($criteria['userId']));
         }
 
         // set ordering
@@ -126,7 +127,7 @@ class ContactManager extends AbstractContactManager
                 $sorting[$ordering['field']] = $ordering['order'];
             }
         } else  {
-            $sorting = array('fname' => 'asc', 'lname' => 'asc');   //default ordering
+            $sorting = array('firstName' => 'ASC', 'lastName' => 'ASC');   //default ordering
         }
 
         $queryBuilder->sort($sorting);
@@ -146,7 +147,8 @@ class ContactManager extends AbstractContactManager
         $this->repository->createQueryBuilder()
             ->remove()
             ->field('id')->in($ids)
-            ->field('userId')->equals($this->getUserId())
+            #->field('userId')->equals($this->getUserId())
+            ->field('userId')->equals($this->getUserIdObject())
             ->getQuery()
             ->execute();
     }
@@ -158,7 +160,8 @@ class ContactManager extends AbstractContactManager
     {
         $this->repository->createQueryBuilder()
             ->remove()
-            ->field('userId')->equals($userId)
+            #->field('userId')->equals($userId)
+            ->field('userId')->equals($this->getUserIdObject($userId))
             ->getQuery()
             ->execute();
     }
@@ -172,10 +175,42 @@ class ContactManager extends AbstractContactManager
             ->select("imagePath")
             ->hydrate(false)
             ->field('id')->in($ids)
-            ->field('userId')->equals($this->getUserId())
+            #->field('userId')->equals($this->getUserId())
+            ->field('userId')->equals($this->getUserIdObject())
             ->field('imagePath')->exists(true);
 
         return $queryBuilder->getQuery()->toArray();
+    }
+
+    /**
+     * Returns the userId MongoId Object.
+     *
+     * @param mixed string|null $userId
+     *
+     * @return MongoId
+     */
+    public function getUserIdObject($userId=null)
+    {
+        if (!$userId) {
+            $userId = $this->getUserId();
+        }
+
+        return new \MongoId($userId);
+
+        /*
+                // validate ObjectId
+                if (!\MongoId::isValid($userId)) {
+                    // convert to hexadecimal
+                    $userId = dechex($userId);
+
+                    // convert to 24 hexadecimal characters
+                    if (strlen($userId) < 24) {
+                        $userId = str_pad($userId, 24, '0', STR_PAD_LEFT);;
+                    }
+                }
+
+                return new \MongoId($userId);
+        */
     }
 
 }
