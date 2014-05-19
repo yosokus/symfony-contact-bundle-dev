@@ -101,54 +101,6 @@ class ContactManager extends AbstractContactManager
             $queryBuilder->andWhere('c.userId = :userId')
                 ->setParameter('userId', $criteria['userId']);
         }
-/*
-        // set name
-        if(isset($criteria['name'])) {
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->orx(
-                    $queryBuilder->expr()->like('c.fname', ':name'),
-                    $queryBuilder->expr()->like('c.lname', ':name')
-                )
-            )
-                ->setParameter('name', '%'. $criteria['name'] . '%');
-        }
-*/
-
-        // set name
-        if(isset($criteria['name'])) {
-            // trim excess space
-            $criteria['name'] = trim(preg_replace( '/\s+/', ' ', $criteria['name'] ));
-
-            $names = explode (" ", $criteria['name']);
-
-            if (count($names) == 1) {
-                $queryBuilder->andWhere(
-                    $queryBuilder->expr()->orx(
-                        $queryBuilder->expr()->like('c.fname', ':name'),
-                        $queryBuilder->expr()->like('c.lname', ':name')
-                    )
-                )
-                    ->setParameter('name', '%'. $criteria['name'] . '%');
-
-            } else {
-                $queryBuilder->andWhere(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->orx(
-                            $queryBuilder->expr()->like('c.fname', ':firstname'),
-                            $queryBuilder->expr()->like('c.fname', ':lastname')
-                        ),
-                        $queryBuilder->expr()->orx(
-                            $queryBuilder->expr()->like('c.lname', ':firstname'),
-                            $queryBuilder->expr()->like('c.lname', ':lastname')
-                        )
-                    )
-                )
-                    ->setParameters( array(
-                        'firstname' => $names[0],
-                        'lastname' => $names[1],
-                    ));
-            }
-        }
 
         // set ordering
         if(isset($criteria['order'])) {
@@ -216,15 +168,17 @@ class ContactManager extends AbstractContactManager
     /**
      * {@inheritDoc}
      */
-    public function getImages($ids, $path)
+    public function getImages($ids)
     {
-        $userId = $this->getUserId();
         $queryBuilder = $this->repository->createQueryBuilder('c')
-            ->select("CONCAT('" . $path . "/', c.imagePath) AS path")
+            ->select('c.imagePath')
             ->where("c.userId = :userId")
             ->andWhere("c.imagePath != ''")
             ->andWhere('c.id IN (:ids)')
-            ->setParameters( array('userId' => $userId, 'ids' => $ids,));
+            ->setParameters( array(
+                'userId' => $this->getUserId(),
+                'ids' => $ids,
+            ));
 
         return $queryBuilder->getQuery()->getArrayResult();
     }

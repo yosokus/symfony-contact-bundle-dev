@@ -178,10 +178,12 @@ abstract class ContactManager implements ContactManagerInterface
         }
 
         // get all images before deleting contacts
+        $images = $this->getImages($ids);
+
+        // get upload directory
         $contactClass = $this->getClass();
         $contact = new $contactClass;
         $uploadDir = $contact->getUploadRootDir();
-        $images = $this->getImages($ids, $uploadDir);
 
         // delete contacts
         $this->doDelete($ids);
@@ -190,8 +192,10 @@ abstract class ContactManager implements ContactManagerInterface
 
         // delete images
         foreach ($images as $image) {
-            if (is_file($image) and file_exists($image)) {
-                @unlink($image);
+            $imageFile = $uploadDir . '/' . $image['imagePath'];
+
+            if (file_exists($imageFile) and is_file($imageFile)) {
+                @unlink($imageFile);
             }
         }
 
@@ -266,15 +270,14 @@ abstract class ContactManager implements ContactManagerInterface
      * Returns an array of images for the given ids.
      *
      * @param array     $ids
-     * @param string    $path
      *
      * @return array(
-     *      0 => array('path'=>'...'),
-     *      1 => array('path'=>'...'),
+     *      0 => array('imagePath'=>'...'),
+     *      1 => array('imagePath'=>'...'),
      *      ....
      *  )
      */
-    abstract protected function getImages($ids, $path);
+    abstract protected function getImages($ids);
 
     /**
      * Performs the persistence of the contact.

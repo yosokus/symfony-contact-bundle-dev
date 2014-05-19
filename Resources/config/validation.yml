@@ -8,7 +8,7 @@
 
 RPS\ContactBundle\Model\Contact:
     properties:
-        fname:
+        firstName:
             - NotBlank:
                 message: rps_contact.fname.blank
             - Length:
@@ -17,7 +17,7 @@ RPS\ContactBundle\Model\Contact:
                 minMessage: rps_contact.fname.short
                 maxMessage: rps_contact.fname.long
 
-        lname:
+        lastName:
             - Length:
                 max: 100
                 maxMessage: rps_contact.lname.long

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the RPSContactBundle
  *
@@ -13,9 +14,8 @@ namespace RPS\ContactBundle\Document;
 use RPS\ContactBundle\Model\Contact as AbstractContact;
 
 /**
-* Default contact ODM
+* Default Contact MongoDB ODM
 */
 class Contact extends AbstractContact
 {
-
 }

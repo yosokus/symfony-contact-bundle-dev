@@ -126,13 +126,13 @@ class ContactManager extends AbstractContactManager
                 $sorting[$ordering['field']] = $ordering['order'];
             }
         } else  {
-            $sorting = array('fname' => 'ASC', 'lname' => 'ASC');   //default ordering
+            $sorting = array('fname' => 'asc', 'lname' => 'asc');   //default ordering
         }
 
         $queryBuilder->sort($sorting);
 
         if (null === $this->pager) {
-            return $queryBuilder->getQuery()->getResult();
+            return $queryBuilder->getQuery()->execute();
         }
 
         return $this->pager->getList($queryBuilder, $offset, $limit);
@@ -173,9 +173,9 @@ class ContactManager extends AbstractContactManager
             ->hydrate(false)
             ->field('id')->in($ids)
             ->field('userId')->equals($this->getUserId())
-            ->field('imagePath')->exits(true);
+            ->field('imagePath')->exists(true);
 
-        return $queryBuilder->getQuery()->execute();
+        return $queryBuilder->getQuery()->toArray();
     }
 
 }

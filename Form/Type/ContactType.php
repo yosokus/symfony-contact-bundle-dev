@@ -34,11 +34,11 @@ class ContactType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('fname', 'text', array(
+        $builder->add('firstName', 'text', array(
                 'label' => 'form.first_name',
                 'translation_domain' => 'RPSContactBundle'
             ))
-            ->add('lname', 'text', array(
+            ->add('lastName', 'text', array(
                 'label' => 'form.last_name',
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',
@@ -53,27 +53,27 @@ class ContactType extends AbstractType
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',
             ))
-            ->add('facebook_username', 'text', array(
+            ->add('facebookUsername', 'text', array(
                 'label' => 'form.facebook_username',
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',
             ))
-            ->add('facebook_uid', 'integer', array(
+            ->add('facebookUid', 'integer', array(
                 'label' => 'form.facebook_uid',
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',
             ))
-            ->add('twitter_username', 'text', array(
+            ->add('twitterUsername', 'text', array(
                 'label' => 'form.twitter_username',
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',
             ))
-            ->add('gplus_username', 'text', array(
+            ->add('gplusUsername', 'text', array(
                 'label' => 'form.gplus_username',
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',
             ))
-            ->add('gplus_uid', 'integer', array(
+            ->add('gplusUid', 'integer', array(
                 'label' => 'form.gplus_uid',
                 'required'=>false,
                 'translation_domain' => 'RPSContactBundle',

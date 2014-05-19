@@ -10,24 +10,14 @@
 
 {% extends 'RPSCoreBundle::layout.html.twig' %}
 
-{#
-{% block title %}{{ 'title.contacts'|trans({}, 'RPSContactBundle') }}{% endblock %}
-{% block content_title %}{{ 'title.contacts'|trans({}, 'RPSContactBundle') }}{% endblock %}
-#}
-
 {% set title = 'title.my_contacts'|trans({}, 'RPSContactBundle') %}
 {% block title %}{{ title }}{% endblock %}
 {% block content_title %}<h2>{{ title }}</h2>{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/rpscontact/css/font-awesome.min.css') }}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bundles/rpscontact/css/contact.css') }}" />
-
-{#
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('bundles/rpscontact/css/contact.css') }}" />
-#}
 {% endblock %}
 
 {% block content_header %}

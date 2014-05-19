@@ -1,0 +1,16 @@
+
+body {padding-top: 70px;}
+.row-padded-top{margin-top:10px;}
+.row-padded-bottom{margin-bottom:10px;}
+
+.rps-contact-list table tbody tr td{vertical-align:middle;}
+
+.rps-contact-list i.fa-mobile, 
+.rps-contact-list i.fa-phone-square, 
+.rps-contact-list i.fa-envelope{cursor:pointer;}
+
+.rps-contact-form .form-btns{margin-top:15px; margin-bottom:10px;}
+.panel-title .rps-checkbox-list{margin-right: 10px;}
+.rps-contact-avatar .thumbnail{margin-bottom: 0px; border: none;}
+.rps-contact-social-icons{margin-top: 20px;}
+.action-seperator:before{content: "|"; margin-left: 10px; margin-right: 10px;}

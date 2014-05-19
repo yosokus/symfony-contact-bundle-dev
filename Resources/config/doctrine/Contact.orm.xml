@@ -29,8 +29,8 @@
         </id>
 
         <field name="userId" column="user_id" type="integer" nullable="false" />
-        <field name="fname" column="fname" type="string" length="50" nullable="false" />
-        <field name="lname" column="lname" type="string" length="50" nullable="true" />
+        <field name="firstName" column="first_name" type="string" length="50" nullable="false" />
+        <field name="lastName" column="last_name" type="string" length="50" nullable="true" />
         <field name="phone" column="phone" type="string" length="32" nullable="true" />
         <field name="email" column="email" type="string" length="100" nullable="true" />
         <field name="twitterUsername" column="twitter_username" type="string" length="32" nullable="true" />

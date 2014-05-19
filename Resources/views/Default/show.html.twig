@@ -11,16 +11,8 @@
 {% extends 'RPSContactBundle:Default:layout.html.twig' %}
 
 {% block content_title %}
-    <h2>{{ contact.fname ~ ' ' ~ contact.lname |trim() }}</h2>
+    <h2>{{ contact.firstName ~ ' ' ~ contact.lastName |trim() }}</h2>
 {% endblock %}
-{#
-{% block content_title %}
-    <h2>
-        {{ contact.fname }}
-        {% if contact.lname %}{{ contact.lname }}{% endif %}
-    </h2>
-{% endblock %}
-#}
 
 {% block content %}
 <div class="rps-contact-wrapper">
@@ -48,11 +40,11 @@
                 <tbody>
                     <tr>
                         <td class="rps-contact-label">{{ 'form.first_name'|trans({}, 'RPSContactBundle') }}</td>
-                        <td>{{ contact.fname }}</td>
+                        <td>{{ contact.firstName }}</td>
                     </tr>
                     <tr>
                         <td class="rps-contact-label">{{ 'form.last_name'|trans({}, 'RPSContactBundle') }}</td>
-                        <td class="rps-contact-value">{{ contact.lname }}</td>
+                        <td class="rps-contact-value">{{ contact.lastName }}</td>
                     </tr>
                     <tr>
                         <td class="rps-contact-label">{{ 'form.phone'|trans({}, 'RPSContactBundle') }}</td>

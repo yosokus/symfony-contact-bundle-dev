@@ -27,32 +27,32 @@ interface ContactInterface
     public function getId();
 
     /**
-     * Set fname
+     * Set first name
      *
-     * @param string $fname
+     * @param string $firstName
      */
-    public function setFname($fname);
+    public function setFirstName($firstName);
 
     /**
-     * Get fname
+     * Get first name
      *
      * @return string
      */
-    public function getFname();
+    public function getFirstName();
 
     /**
-     * Set lname
+     * Set last name
      *
-     * @param string $lname
+     * @param string $lastName
      */
-    public function setLname($lname);
+    public function setLastName($lastName);
 
     /**
-     * Get lname
+     * Get last name
      *
      * @return string
      */
-    public function getLname();
+    public function getLastName();
 
     /**
      * Set phone

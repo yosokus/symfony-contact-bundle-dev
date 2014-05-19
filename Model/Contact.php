@@ -28,12 +28,12 @@ abstract class Contact implements ContactInterface
     /**
      * @var string
      */
-    protected $fname;
+    protected $firstName;
 
     /**
      * @var string
      */
-    protected $lname;
+    protected $lastName;
 
     /**
      * @var string
@@ -121,43 +121,43 @@ abstract class Contact implements ContactInterface
     }
 
     /**
-     * Set fname
+     * Set first name
      *
-     * @param string $fname
+     * @param string $firstName
      */
-    public function setFname($fname)
+    public function setFirstName($firstName)
     {
-        $this->fname = $fname;
+        $this->firstName = $firstName;
     }
 
     /**
-     * Get fname
+     * Get first name
      *
      * @return string
      */
-    public function getFname()
+    public function getFirstName()
     {
-        return $this->fname;
+        return $this->firstName;
     }
 
     /**
-     * Set lname
+     * Set last name
      *
-     * @param string $lname
+     * @param string $lastName
      */
-    public function setLname($lname)
+    public function setLastname($lastName)
     {
-        $this->lname = $lname;
+        $this->lastName = $lastName;
     }
 
     /**
-     * Get lname
+     * Get last name
      *
      * @return string
      */
-    public function getLname()
+    public function getLastName()
     {
-        return $this->lname;
+        return $this->lastName;
     }
 
     /**
@@ -357,7 +357,7 @@ abstract class Contact implements ContactInterface
      */
     public function getUploadRootDir()
     {
-        return realpath(__DIR__ . '/../../../../web/' . $this->getUploadDir());
+        return realpath(__DIR__ . '/../../../../web') . '/' . $this->getUploadDir();
     }
 
     /**
@@ -454,8 +454,9 @@ abstract class Contact implements ContactInterface
             return;
         }
 
-        // check if we have an old image
+        // check if we have an old avatar
         if (isset($this->tempAvatarPath))  {
+            // delete the old avatar
             if( is_file($this->tempAvatarPath) and file_exists($this->tempAvatarPath) ) {
                 @unlink($this->tempAvatarPath);
             }

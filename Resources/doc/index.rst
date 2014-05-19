@@ -12,11 +12,11 @@ Installation
         "rps/contact-bundle": "dev-master"
     }
 
-2. Update the dependency
+2. Update the dependencies
 
 .. code-block:: bash
 
-    php composer.phar update rps/contact-bundle
+    php composer.phar update rps/core-bundle rps/contact-bundle
 
 **Or** you can do both steps in one command
 

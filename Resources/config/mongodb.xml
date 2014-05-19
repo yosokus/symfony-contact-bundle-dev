@@ -21,7 +21,7 @@
 
     <services>
         <!-- Document manager -->
-        <service id="rps_contact.document_manager" alias="doctrine.odm.default_document_manager" />
+        <service id="rps_contact.document_manager" alias="doctrine_mongodb.odm.default_document_manager" />
 
         <!-- Contact Manager -->
         <service id="rps_contact.contact_manager" class="%rps_contact.manager.contact.class%">
