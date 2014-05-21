@@ -33,6 +33,10 @@ class RPSContactExtension extends Extension implements PrependExtensionInterface
         // get all Bundles
         $bundles = $container->getParameter('kernel.bundles');
 
+        // get the RPSContact configuration
+        $configs = $container->getExtensionConfig($this->getAlias());
+        $contactConfig = $this->processConfiguration(new Configuration(), $configs);
+
         // check if LiipImagineBundle is registered
         if (isset($bundles['LiipImagineBundle'])) {
             $rpsConfig = array('filter_image' => true);
@@ -48,14 +52,10 @@ class RPSContactExtension extends Extension implements PrependExtensionInterface
                 $liipImagineConfig = array_merge($liipImagineConfigs, $config);
             }
 
-            // get the RPSContact configuration
-            $configs = $container->getExtensionConfig($this->getAlias());
-            $config = $this->processConfiguration(new Configuration(), $configs);
-
             // set the RPSContactBundle liip_imagine filter_sets configuration
             // if not overridden in the app/config/config.yml file
             if (!isset($liipImagineConfig['filter_sets']['rps_contact_avatar'])) {
-                $avatarConfig = $config['image']['avatar'];    // avatar image configuration
+                $avatarConfig = $contactConfig['image']['avatar'];    // avatar image configuration
                 $contactFilterSets['rps_contact_avatar'] = array(
                     'quality' => $avatarConfig['quality'],
                     'filters' => array(
@@ -71,7 +71,7 @@ class RPSContactExtension extends Extension implements PrependExtensionInterface
             }
 
             if (!isset($liipImagineConfig['filter_sets']['rps_contact_thumb'])) {
-                $thumbConfig = $config['image']['thumb'];   // thumb image configuration
+                $thumbConfig = $contactConfig['image']['thumb'];   // thumb image configuration
                 $contactFilterSets['rps_contact_thumb'] = array(
                     'quality' => $thumbConfig['quality'],
                     'filters' => array(
@@ -97,12 +97,15 @@ class RPSContactExtension extends Extension implements PrependExtensionInterface
             $rpsConfig = array('filter_image' => false);
         }
 
-
         // check if WhiteOctoberPagerfantaBundle is registered
         // if not set the default pager class
         // can be overridden by setting the rps_contact.pager.class config
         if (!isset($bundles['WhiteOctoberPagerfantaBundle'])) {
-            $rpsConfig['class']['pager'] = 'RPS\CoreBundle\Pager\DefaultPager';
+            if ( 'orm' == $contactConfig['db_driver']) {
+                $rpsConfig['class']['pager'] = 'RPS\CoreBundle\Pager\DefaultORM';
+            } else {
+                $rpsConfig['class']['pager'] = 'RPS\CoreBundle\Pager\DefaultMongodb';
+            }
         }
 
         // add the RPSContact configurations
@@ -174,7 +177,7 @@ class RPSContactExtension extends Extension implements PrependExtensionInterface
         if (isset($config['service']['pager'])) {
             $container->setAlias('rps_contact.pager', $config['service']['pager']);
         } else {
-            $container->setAlias('rps_contact.pager', 'rps_contact.pager.pagerfanta');
+            $container->setAlias('rps_contact.pager', 'rps_contact.pager.default');
         }
     }
 }

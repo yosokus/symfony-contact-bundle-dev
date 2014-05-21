@@ -31,13 +31,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->root('rps_contact')
             ->children()
                 ->scalarNode('db_driver')->defaultValue('orm')->end()
-                ->booleanNode('filter_image')->defaultTrue()->end()
                 ->integerNode('contact_per_page')->min(1)->defaultValue(25)->end()
+                ->booleanNode('filter_image')->defaultTrue()->end()
                 ->scalarNode('default_avatar')->end()
 
                 ->arrayNode('service')->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('pager')->cannotBeEmpty()->end()
+                        ->scalarNode('pager')->end()
                     ->end()
                 ->end()
 

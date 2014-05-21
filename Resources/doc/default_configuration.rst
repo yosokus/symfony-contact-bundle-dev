@@ -15,10 +15,10 @@ Default Configuration
             pager : RPS\CoreBundle\Pager\PagerfantaORM              # (optional) pager class
 
         view:
-            list: MyprojectMyBundle:Contact:index.html.twig
-            show: MyprojectMyBundle:Contact:show.html.twig
-            new: MyprojectMyBundle:Contact:new.html.twig
-            edit: MyprojectMyBundle:Contact:edit.html.twig
+            list: RPSContactBundle:Contact:index.html.twig
+            show: RPSContactBundle:Contact:show.html.twig
+            new: RPSContactBundle:Contact:new.html.twig
+            edit: RPSContactBundle:Contact:edit.html.twig
 
         form:
             contact:

@@ -1,23 +1,19 @@
 Pager Configuration
 ===================
 
+The RPSContactBundle uses the ``WhiteOctoberPagerfantaBundle`` for pagination.
 Pagination is enabled by default.
 
+To use ``WhiteOctoberPagerfantaBundle`` as the RPSContactBundle pager ,
+you must install the WhiteOctoberPagerfantaBundle_.
 
-Using WhiteOctoberPagerfantaBundle for pagination
--------------------------------------------------
-
-The RPSContactBundle is integrated with the WhiteOctoberPagerfantaBundle_.
-
-To use ``WhiteOctoberPagerfantaBundle`` for pagination, you must install the WhiteOctoberPagerfantaBundle_.
-
-The RPSContactBundle automatically checks if the WhiteOctoberPagerfantaBundle is installed.
 If the WhiteOctoberPagerfantaBundle is not installed, the RPSContactBundle will disable pagination.
 
 To limit the number of contacts shown, set the ``contact_per_page`` config option
 
 .. code-block:: yml
 
+    # app/config/config.yml
     rps_contact:
         contact_per_page: 25
 
@@ -29,11 +25,12 @@ You can specify your custom pager manager class by overriding the pager class op
 
 .. code-block:: yml
 
+    # app/config/config.yml
     rps_contact:
         class:
             pager: MyProject\MyBundle\Pager\Pager
 
-Your custom class must implement the ``\RPS\CoreBundle\Pager\PagerInterface`` interface.
+Your custom class **must** implement the ``\RPS\CoreBundle\Pager\PagerInterface`` interface.
 
 
 Using a custom pager service
@@ -44,11 +41,12 @@ by setting the pager service config option.
 
 .. code-block:: yml
 
+    # app/config/config.yml
     rps_contact:
         service:
             pager: my_pager
 
-Your pager service class must implement the ``\RPS\CoreBundle\Pager\PagerInterface`` interface.
+Your pager service class **must** implement the ``\RPS\CoreBundle\Pager\PagerInterface`` interface.
 
 
 Other topics

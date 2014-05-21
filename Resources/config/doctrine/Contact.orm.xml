@@ -14,10 +14,8 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="RPS\ContactBundle\Entity\Contact" table="rps_contacts">
+    <entity name="RPS\ContactBundle\Entity\Contact" table="rps_contact">
         <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="preSave" />
-            <lifecycle-callback type="preUpdate" method="preSave" />
             <lifecycle-callback type="postPersist" method="postSave" />
             <lifecycle-callback type="postUpdate" method="postSave" />
             <lifecycle-callback type="preRemove" method="preRemove" />
@@ -38,7 +36,7 @@
         <field name="facebookUid" column="facebook_uid" type="string" length="24" nullable="true" />
         <field name="gplusUsername" column="gplus_username" type="string" length="64" nullable="true" />
         <field name="gplusUid" column="gplus_uid" type="string" length="24" nullable="true" />
-        <field name="imagePath" column="image_path" type="string" length="32" nullable="true" />
+        <field name="imagePath" column="image_path" type="string" length="100" nullable="true" />
     </entity>
 
 </doctrine-mapping>

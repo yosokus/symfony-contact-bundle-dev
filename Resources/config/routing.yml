@@ -28,8 +28,6 @@ rps_contact_add:
 rps_contact_edit:
     pattern: /contact/edit/{id}
     defaults: { _controller: RPSContactBundle:Contact:edit }
-    requirements:
-        id: \d+
 
 rps_contact_delete:
     pattern: /contact/delete
@@ -40,18 +38,7 @@ rps_contact_remove:
     pattern: /contact/remove/{id}
     defaults: { _controller: RPSContactBundle:Contact:remove }
     methods: [GET]
-    requirements:
-        page: \d+
 
 rps_contact_show:
     pattern: /contact/view/{id}
     defaults: { _controller: RPSContactBundle:Contact:show }
-    requirements:
-        id: \d+
-
-#--- delete ---
-rps_contact_user_delete:
-    pattern: /contact/test/userdelete/{id}
-    defaults: { _controller: RPSContactBundle:Test:deleteUser }
-    requirements:
-        id: \d+

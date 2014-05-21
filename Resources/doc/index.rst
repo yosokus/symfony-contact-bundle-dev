@@ -3,7 +3,7 @@ Installation
 
 1. Add the following lines to your ``composer.json``
 
-.. code-block:: php
+.. code-block:: js
 
     // composer.json
     "require": {
@@ -67,11 +67,17 @@ Add the following to you routing file
 
 #. Update your schema
 
-Run the following command
+For ORM users run the following command
 
 .. code-block:: bash
 
     app/console doctrine:schema:update --force
+
+
+For MongoDB users run the following command.
+
+.. code-block:: bash
+    php app/console doctrine:mongodb:schema:create --index
 
 
 #. Enable the translator in your configuration
@@ -86,15 +92,18 @@ Run the following command
 For more information about translations, check the `Symfony Translation documentation`_
 
 
-#. Install a User Manager
+#. Install a User Management bundle
 
-You **must** install a User manager (e.g. `FOSUserBundle`_ ,  `SonataUserBundle`_),
+You **must** install a User management bundle (e.g. `FOSUserBundle`_ ,  `SonataUserBundle`_),
 before you can use the RPSContactBundle.
 
-The RPSContactBundle is designed to work with any user manager bundle that has a ``user id`` field.
+The RPSContactBundle is designed to work with any user management bundle that has a ``user id`` field.
 
-Check the documentation of your preferred user manager for information on
+Check the documentation of your preferred user management bundle for information on
 how to install it.
+
+**Note:** Your database driver configuration (orm|mongodb) **must** match that of
+your user manager driver configuration.
 
 
 #. Install the LiipImagineBundle_ and configure it properly (see the docs for more information).
@@ -119,8 +128,8 @@ Other topics
 .. _`FOSUserBundle`: https://github.com/FriendsOfSymfony/FOSUserBundle
 .. _`SonataUserBundle`: https://github.com/sonata-project/SonataUserBundle
 
-.. _Doctrine Configuration: Resources/doc/doctrine.rst
+.. _`Doctrine Configuration`: Resources/doc/doctrine.rst
 .. _`Image Manager Configuration`: Resources/doc/image_manager.rst
-.. _Pager Configuration: Resources/doc/pager.rst
+.. _`Pager Configuration`: Resources/doc/pager.rst
 .. _`Views/Templates`: Resources/doc/views.rst
 .. _`Default Configuration`: Resources/doc/default_configuration.rst

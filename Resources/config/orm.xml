@@ -33,6 +33,13 @@
                 <argument type="service" id="rps_contact.pager" on-invalid="null" />
             </call>
         </service>
+
+        <!-- Event listener -->
+        <service id="rps_contact.listener.user_preremove" class="%rps_contact.listener.user.class%">
+            <tag name="doctrine.event_listener" event="preRemove" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="logger" on-invalid="null" />
+        </service>
     </services>
 
 </container>

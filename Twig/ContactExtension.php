@@ -37,13 +37,21 @@ class ContactExtension extends \Twig_Extension
     private $defaultAvatar;  // the default avatar
 
     /**
+     * @var string
+     */
+    private $imagineExtension;  // the ImagineBundle twig extension
+
+    /**
      * @param ContainerInterface    $container
      * @param string                $contactClass
      * @param string                $defaultAvatar
+     * @param mixed                 $imagineExtension (Liip\ImagineBundle\Templating\ImagineExtension|null)
      */
-    public function __construct(ContainerInterface $container, $contactClass, $defaultAvatar='')
+    public function __construct(ContainerInterface $container, $contactClass,
+                                $defaultAvatar = '', $imagineExtension = null)
     {
         $this->container = $container;
+        $this->imagineExtension = $imagineExtension;
 
         $contact = new $contactClass;
         $this->uploadDir = $contact->getUploadDir();
@@ -75,6 +83,7 @@ class ContactExtension extends \Twig_Extension
     {
         return array(
             'rps_get_avatar' => new \Twig_Function_Method($this, 'getAvatar'),
+            'rps_filter_image' => new \Twig_Function_Method($this, 'filterImage'),
             'rps_trans' => new \Twig_Function_Method($this, 'translate'),
         );
     }
@@ -84,37 +93,50 @@ class ContactExtension extends \Twig_Extension
      *
      * @param string    $path            the user avatar relative path
      * @param boolean   $absolutePath    return relative path or the full path
+     * @param string    $filterName      the LiipImagineBunble filter name
      *
      * @return string path
      */
-    public function getAvatar($path, $absolutePath=true)
+    public function getAvatar($path, $absolutePath=true, $filterName='')
     {
-        if (!$path) {
-            if($absolutePath) {
-                return $this->container->get('templating.helper.assets')
-                    ->getUrl($this->defaultAvatar);
+        $avatar = $this->defaultAvatar; // default avatar relative path
+
+        if ($path) {
+            // return the contact avatar if it exists
+            $avatarAbsolutePath = $this->uploadRootDir . '/' . $path;
+            if (is_file($avatarAbsolutePath) and file_exists($avatarAbsolutePath)) {
+                $avatar = $this->uploadDir . '/' . $path; // avatar relative path
             }
-
-            return $this->defaultAvatar;
         }
-
-        // If the avatar does not exist, return the default avatar
-        if (!file_exists($this->uploadRootDir . '/' . $path)) {
-            if ($absolutePath) {
-                return $this->container->get('templating.helper.assets')
-                    ->getUrl($this->defaultAvatar);
-            }
-
-            return $this->defaultAvatar;
-        }
-
-        $avatar = $this->uploadDir . '/' . $path; // avatar relative path
 
         if($absolutePath) {
-            $avatar =  $this->container->get('templating.helper.assets')->getUrl($avatar);
+            $avatar =  $this->container->get('templating.helper.assets')
+                ->getUrl($avatar);  // avatar absolute path
+        }
+
+        if ($filterName) {
+            $avatar = $this->filterImage($avatar, $filterName, false); // filtered image path
         }
 
         return $avatar;
+    }
+
+    /**
+     * Returns the filtered image path if the LiipImagineBundle is enabled
+     *
+     * @param string    $path       message key
+     * @param string    $filter     message key
+     * @param boolean   $absolute   message key
+     *
+     * @return string
+     */
+    public function filterImage($path, $filter, $absolute = false)
+    {
+        if (null === $this->imagineExtension) {
+            return $path;
+        }
+
+        return $this->imagineExtension->render($path, $filter, $absolute);
     }
 
     /**

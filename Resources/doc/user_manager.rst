@@ -29,9 +29,9 @@ Other topics
 .. _`SonataUserBundle`: https://github.com/sonata-project/SonataUserBundle
 
 .. _Installation: Resources/doc/index.rst
-.. _Doctrine Configuration: Resources/doc/doctrine.rst
+.. _`Doctrine Configuration`: Resources/doc/doctrine.rst
 .. _`Image Manager Configuration`: Resources/doc/image_manager.rst
-.. _Pager Configuration: Resources/doc/pager.rst
+.. _`Pager Configuration`: Resources/doc/pager.rst
 .. _`Views/Templates`: Resources/doc/views.rst
 .. _`Default Configuration`: Resources/doc/default_configuration.rst
 

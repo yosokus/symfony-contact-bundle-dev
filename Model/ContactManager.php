@@ -125,6 +125,10 @@ abstract class ContactManager implements ContactManagerInterface
      */
     public function save(ContactInterface $contact)
     {
+        if ($this->isNew($contact)) {
+            $contact->setUserId($this->getUserId());
+        }
+
         $event = new ContactEvent($contact);
         $this->dispatcher->dispatch(Events::CONTACT_PRE_PERSIST, $event);
 
@@ -188,8 +192,6 @@ abstract class ContactManager implements ContactManagerInterface
         // delete contacts
         $this->doDelete($ids);
 
-        $this->dispatcher->dispatch(Events::CONTACT_POST_DELETE, $event);
-
         // delete images
         foreach ($images as $image) {
             $imageFile = $uploadDir . '/' . $image['imagePath'];
@@ -198,6 +200,8 @@ abstract class ContactManager implements ContactManagerInterface
                 @unlink($imageFile);
             }
         }
+
+        $this->dispatcher->dispatch(Events::CONTACT_POST_DELETE, $event);
 
         return true;
     }
@@ -260,7 +264,7 @@ abstract class ContactManager implements ContactManagerInterface
     /**
      * Performs the removal of all contacts belonging to a user.
      *
-     * @param integer   $userId
+     * @param mixed $userId (integer|ObjectID)
      *
      * @return array
      */

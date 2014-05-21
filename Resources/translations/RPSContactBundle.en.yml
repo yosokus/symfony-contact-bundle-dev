@@ -72,6 +72,7 @@ form:
     avatar:                 Avatar
     save:                   Save
     save_and_new:           Save & New
+    delete_avatar:          Delete this avatar
 
 show:
     first_name:             First Name

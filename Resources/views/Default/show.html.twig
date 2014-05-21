@@ -18,16 +18,16 @@
 <div class="rps-contact-wrapper">
     <div class="row row-padded-top">
         <div class="btn-toolbar">
-            <a class="btn btn-info" href="{{ path( 'rps_contact_cancel') }}">{{ 'back'|trans({}, 'RPSContactBundle') }}</a>
-            <a class="btn btn-warning" href="{{ path( 'rps_contact_edit', {'id': contact.id} ) }}">{{ 'edit'|trans({}, 'RPSContactBundle') }}</a>
-            <a class="btn btn-danger" href="{{ path( 'rps_contact_remove', {'id': contact.id} ) }}" onclick="return confirm('{{ 'confirm_contact_remove'|trans({}, 'RPSContactBundle') }}')">{{ 'Delete'|trans({}, 'RPSContactBundle') }}</a>
+            <a class="btn btn-info" href="{{ path( 'rps_contact_cancel') }}">{{ 'link.back'|trans({}, 'RPSContactBundle') }}</a>
+            <a class="btn btn-warning" href="{{ path( 'rps_contact_edit', {'id': contact.id} ) }}">{{ 'link.edit'|trans({}, 'RPSContactBundle') }}</a>
+            <a class="btn btn-danger" href="{{ path( 'rps_contact_remove', {'id': contact.id} ) }}" onclick="return confirm('{{ 'confirm_contact_remove'|trans({}, 'RPSContactBundle') }}')">{{ 'link.delete'|trans({}, 'RPSContactBundle') }}</a>
         </div>
     </div>
 
     <div class="row row-padded-top">
         <div class="rps-contact-avatar">
             {% if filter_image %}
-                <img src="{{ rps_get_avatar( contact.imagePath, false ) | imagine_filter('rps_contact_avatar', false) }}"/>
+                <img src="{{ rps_get_avatar( contact.imagePath, false, 'rps_contact_avatar' ) }}"/>
             {% else %}
                 <img src="{{ rps_get_avatar( contact.imagePath )  }}"/>
             {% endif %}

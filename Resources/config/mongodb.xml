@@ -16,7 +16,7 @@
     <parameters>
         <parameter key="rps_contact.model.contact.class">RPS\ContactBundle\Document\Contact</parameter>
         <parameter key="rps_contact.manager.contact.class">RPS\ContactBundle\Document\ContactManager</parameter>
-        <parameter key="rps_contact.pager.class">RPS\CoreBundle\Pager\PagerfantaODM</parameter>
+        <parameter key="rps_contact.pager.class">RPS\CoreBundle\Pager\PagerfantaMongodb</parameter>
     </parameters>
 
     <services>
@@ -34,6 +34,12 @@
             </call>
         </service>
 
+        <!-- Event listener -->
+        <service id="rps_contact.listener.user_preremove" class="%rps_contact.listener.user.class%">
+            <tag name="doctrine_mongodb.odm.event_listener" event="preRemove" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="logger" on-invalid="null" />
+        </service>
     </services>
 
 </container>

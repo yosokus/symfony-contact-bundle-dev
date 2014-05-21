@@ -228,11 +228,6 @@ interface ContactInterface
     public function getAvatarAbsolutePath();
 
     /**
-     * Pre persist/update
-     */
-    public function preSave();
-
-    /**
      * Post persist/update()
      */
     public function postSave();

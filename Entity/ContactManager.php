@@ -108,7 +108,7 @@ class ContactManager extends AbstractContactManager
                 $queryBuilder->addOrderBy($ordering['field'], $ordering['order']);
             }
         } else  {
-            $queryBuilder->orderBy('c.fname, c.lname', 'ASC');  //default ordering
+            $queryBuilder->orderBy('c.firstName, c.lastName', 'ASC');  //default ordering
         }
 
         if (null === $this->pager) {

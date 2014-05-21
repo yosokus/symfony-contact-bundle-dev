@@ -11,11 +11,11 @@
 
 namespace RPS\ContactBundle\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 class UserListener
 {
@@ -48,12 +48,12 @@ class UserListener
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
+        $object = $args->getObject();   // returns a ORM|Mongodb object
 
-        if ($entity instanceof UserInterface) {
-            //delete contacts
+        if ($object instanceof UserInterface) {
+            //delete user contacts
             $deleteStatus = $this->container->get('rps_contact.contact_manager')
-                ->deleteUser($entity->getId());
+                ->deleteUser($object->getId());
 
             if (null !== $this->logger) {
                 if ($deleteStatus['status'] === false) {

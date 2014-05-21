@@ -4,11 +4,12 @@ A simple yet extensible user contact package based on Doctrine2 (ORM and MongoDB
 
 ##Features
 
-- Compatible with Doctrine ORM **and** ODM.
+- Compatible with Doctrine ORM **and** MongoDB ODM.
 - Extensible models
 - Extensible through events fired during the contact lifecycle
-- Integration with [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)
-- Integration with [WhiteOctoberPagerfantaBundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle‎) (optional)
+- Integrated with [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle) user manager.
+- Integrated with [LiipImagineBundle](https://github.com/liip/LiipImagineBundle) image manager.
+- Integrated with [WhiteOctoberPagerfantaBundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle‎) pager.
 
 ##Installation
 

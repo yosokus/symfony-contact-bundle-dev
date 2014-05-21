@@ -14,8 +14,8 @@ namespace RPS\ContactBundle\Document;
 use RPS\ContactBundle\Model\Contact as AbstractContact;
 
 /**
-* Default Contact MongoDB ODM
-*/
+ * Default Contact MongoDB ODM
+ */
 class Contact extends AbstractContact
 {
 }

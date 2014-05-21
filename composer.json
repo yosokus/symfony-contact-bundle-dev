@@ -1,0 +1,32 @@
+{
+    "name": "rps/contact-bundle",
+    "description": "Symfony RPSContactBundle",
+    "keywords": ["package", "symfony", "contact"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yos Okusanya",
+            "email": "yos.okus@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.3",
+		"rps/core-bundle": "dev-master"
+    },
+
+    "require-dev": {
+        "doctrine/orm": "~2.3"
+    },
+
+    "suggest": {
+        "liip/imagine-bundle": "Integrates LiipImagineBundle for resizing images.",
+        "white-october/pagerfanta-bundle": "Integrates white-october/pagerfanta for pagination."
+    },
+
+    "autoload": {
+        "psr-0": { "RPS\\ContactBundle": "" }
+    },
+
+    "target-dir": "RPS/ContactBundle"
+}

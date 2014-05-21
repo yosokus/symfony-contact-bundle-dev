@@ -21,7 +21,7 @@
 
     <services>
         <!-- Pager -->
-        <service id="rps_contact.pager.pagerfanta" class="%rps_contact.pager.class%">
+        <service id="rps_contact.pager.default" class="%rps_contact.pager.class%">
             <argument type="service" id="twig.extension.pagerfanta" on-invalid="null" />
         </service>
 
@@ -31,13 +31,7 @@
             <argument type="service" id="service_container" />
             <argument>%rps_contact.model.contact.class%</argument>
             <argument>%rps_contact.default_avatar%</argument>
-        </service>
-
-        <!-- Event listener -->
-        <service id="rps_contact.listener.user_preremove" class="%rps_contact.listener.user.class%">
-            <tag name="doctrine.event_listener" event="preRemove" />
-            <argument type="service" id="service_container" />
-            <argument type="service" id="logger" on-invalid="null" />
+            <argument type="service" id="liip_imagine.twig.extension" on-invalid="null" />
         </service>
     </services>
 

@@ -23,7 +23,7 @@ class ContactController extends Controller
     /**
      * Shows contacts.
      *
-     * @param int $page query offset
+     * @param integer $page query offset
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -72,14 +72,11 @@ class ContactController extends Controller
         $manager = $this->getManager();;
         $form = $this->container->get('rps_contact.form_factory.contact');
 
-        $userId = (int)$this->getUser()->getId();
-
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 
             if ($form->isValid()) {
                 $contact = $form->getData();
-                $contact->setUserId($userId);                       // set user id
                 $contact->setAvatar($form['avatar']->getData());    // set contact avatar
 
                 // save contact
@@ -105,7 +102,7 @@ class ContactController extends Controller
      * Edits a contact/Show admin form
      *
      * @param Request   $request    Current request
-     * @param integer   $id         Contact id
+     * @param mixed     $id         Contact id (string|integer)
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -133,6 +130,10 @@ class ContactController extends Controller
                 $contact = $form->getData();
                 $contact->setAvatar($form['avatar']->getData());    //set contact avatar
 
+                if ($request->get('deleteAvatar')) {
+                    $contact->storeAvatarToRemove();
+                }
+            
                 if ($manager->save($contact) !== false) {
                     return $this->onSaveSuccess(
                         $contact,
@@ -144,20 +145,31 @@ class ContactController extends Controller
                 }
             }
         }
+        
+        $avatar = $contact->getAvatarAbsolutePath();
+        $hasAvatar = (is_file($avatar) and file_exists($avatar)) ? true : false;
 
         return $this->render(
             $this->getView('edit'),
-            array('form' => $form->createView(), 'id' => $id)
+            array(
+                'id' => $id,
+                'form' => $form->createView(),
+                'contact' => $contact,
+                'hasAvatar' => $hasAvatar,
+                'filter_image' =>  $this->container->getParameter('rps_contact.filter_image'),
+                'image_quality' =>  $this->container->getParameter('rps_contact.avatar_quality'),
+                'image_width' =>  $this->container->getParameter('rps_contact.avatar_width'),
+                'image_height' =>  $this->container->getParameter('rps_contact.avatar_height'),
+            )
         );
     }
 
     /**
      * Handles successful form submission.
-     * Redirects to the relevant page depending on what button was clicked.
      *
      * @param ContactInterface  $contact
      * @param boolean           $saveAndNew     true if save and new button clicked
-     * @param boolean           $isNew          true if adding new contact
+     * @param boolean           $isNew          true if saving a new contact
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -185,9 +197,9 @@ class ContactController extends Controller
     /**
      * Show contact
      *
-     * @param $id
+     * @param mixed  $id Contact id (integer|string)
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($id)
     {
@@ -210,7 +222,7 @@ class ContactController extends Controller
     /**
      * Delete contact
      *
-     * @param int $id Contact id
+     * @param mixed $id Contact id (integer|string)
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -311,8 +323,8 @@ class ContactController extends Controller
     /**
      * check if contact belongs to the user
      *
-     * @param int $ownerId  contact user id
-     * @param int $userId   current user id
+     * @param mixed     $ownerId  contact user id (integer|string)
+     * @param mixed     $userId   current user id (integer|string||null)
      *
      * @return boolean
      *
@@ -325,7 +337,7 @@ class ContactController extends Controller
             $userId = $this->getUser()->getId();
         }
 
-        if ( (int)$userId !== (int)$ownerId ) {
+        if ( $userId !== $ownerId ) {
             throw new AccessDeniedException('You do not have access to this contact.');
         }
 

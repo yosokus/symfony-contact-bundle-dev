@@ -358,20 +358,6 @@ abstract class Contact implements ContactInterface
     public function getUploadRootDir()
     {
         return __DIR__ . '/../../../../../../web/' . $this->getUploadDir();
-/*
-        $dir = __DIR__ . '/../../../..';
-        $search = DIRECTORY_SEPARATOR . 'rps' . DIRECTORY_SEPARATOR .'contact-bundle'
-            . DIRECTORY_SEPARATOR . 'RPS' . DIRECTORY_SEPARATOR;
-
-        if (strpos($dir, $search) !== false) {
-            $dir .= '/../..';
-        }
-
-        $dir = realpath($dir);
-        $dir .= '/web/'. $this->getUploadDir();
-
-        return $dir;
-*/
     }
 
     /**

@@ -22,7 +22,26 @@
             <a class="btn btn-danger" href="{{ path('rps_contact_cancel') }}">{{ 'link.cancel'|trans({}, 'RPSContactBundle') }}</a>
         </div>
 
-        {{ form_widget(form) }}
+        <div class="row row-padded-top">
+            <div class="rps-contact-avatar">
+                {% if filter_image %}
+                    <img src="{{ rps_get_avatar( contact.imagePath, false, 'rps_contact_avatar' ) }}"/>
+                {% else %}
+                    <img src="{{ rps_get_avatar( contact.imagePath )  }}"/>
+                {% endif %}
+            </div>
+
+            {% if hasAvatar %}
+                <div class="checkbox">
+                    <label><input type="checkbox" name="deleteAvatar" value="1" / >{{ 'form.delete_avatar'|trans({}, 'RPSContactBundle') }}</label>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="row row-padded-top">
+            {{ form_widget(form) }}
+        </div>
 
         <input type="hidden" name="id" value="{{ id }}" />
 
