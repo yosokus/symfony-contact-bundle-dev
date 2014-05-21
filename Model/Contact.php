@@ -357,7 +357,21 @@ abstract class Contact implements ContactInterface
      */
     public function getUploadRootDir()
     {
-        return realpath(__DIR__ . '/../../../../web') . '/' . $this->getUploadDir();
+        return __DIR__ . '/../../../../../../web/' . $this->getUploadDir();
+/*
+        $dir = __DIR__ . '/../../../..';
+        $search = DIRECTORY_SEPARATOR . 'rps' . DIRECTORY_SEPARATOR .'contact-bundle'
+            . DIRECTORY_SEPARATOR . 'RPS' . DIRECTORY_SEPARATOR;
+
+        if (strpos($dir, $search) !== false) {
+            $dir .= '/../..';
+        }
+
+        $dir = realpath($dir);
+        $dir .= '/web/'. $this->getUploadDir();
+
+        return $dir;
+*/
     }
 
     /**
@@ -387,14 +401,43 @@ abstract class Contact implements ContactInterface
      */
     public function setAvatar(UploadedFile $avatar = null)
     {
-        $this->avatar = $avatar;
-        // check if we have an old image path
+        if (null === $avatar) {
+            return;
+        }
+
+        $ext = $avatar->guessExtension();
+
+        //validate image
+        if ( in_array(strtolower($ext), array('png','jpg', 'jpeg', 'gif')) ) {
+            $this->avatar = $avatar;
+            $this->storeAvatarToRemove();
+
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->avatarFilename = $filename;
+            $this->avatarFileExt = $ext;
+            $this->imagePath = $this->userId . '/' . $filename . '.' . $ext;
+        } else {
+            $this->avatar = null;
+            $this->setUploadErrorMessage('flash.error.format_not_supported');
+        }
+    }
+
+    /**
+     * Store avatar filename to delete after save.
+     */
+    public function storeAvatarToRemove()
+    {
+        // exit if avatar already stored
+        if (isset($this->tempAvatarPath)) {
+            return;
+        }
+
+        // check if we have an old avatar
         if (isset($this->imagePath)) {
-            // store the old name to delete after the update
             $this->tempAvatarPath = $this->getAvatarAbsolutePath();
             $this->imagePath = null;
         } else {
-            $this->imagePath = '';
+            $this->imagePath = null;
         }
     }
 
@@ -419,49 +462,23 @@ abstract class Contact implements ContactInterface
     }
 
     /**
-     * Pre persist/update.
-     * Validate avatar and set contact image path
-     */
-    public function preSave()
-    {
-        $avatar = $this->getAvatar();
-
-        if (null !== $avatar) {
-            $filename = sha1(uniqid(mt_rand(), true));
-            $ext = $avatar->guessExtension();
-
-            //validate image
-            if ( in_array(strtolower($ext), array('png','jpg', 'jpeg', 'gif')) ) {
-                $this->avatarFilename = $filename;
-                $this->avatarFileExt = $ext;
-                $this->imagePath = $this->userId . '/' . $filename . '.' . $ext;
-            } else {
-                $this->setFile(null);
-                $this->setUploadErrorMessage('flash.error.format_not_supported');
-            }
-        }
-    }
-
-    /**
      * Post persist/update.
      * Move avatar and delete old avatar (if exists)
      */
     public function postSave()
     {
-        $avatar = $this->getAvatar();
-
-        if (null === $avatar) {
-            return;
-        }
-
-        // check if we have an old avatar
+        // delete old avatar
         if (isset($this->tempAvatarPath))  {
-            // delete the old avatar
             if( is_file($this->tempAvatarPath) and file_exists($this->tempAvatarPath) ) {
                 @unlink($this->tempAvatarPath);
             }
 
             $this->tempAvatarPath = null;   // clear the temp avatar path
+        }
+
+        // upload avatar
+        if (null === $this->avatar) {
+            return;
         }
 
         $uploadDir = $this->getUploadRootDir() . '/' . $this->userId ;
@@ -470,7 +487,7 @@ abstract class Contact implements ContactInterface
         // throws a FileException exception
         // catch exception (if thrown) and report error in the frontend
         try{
-            $avatar->move($uploadDir, $filename);
+            $this->avatar->move($uploadDir, $filename);
         }catch(FileException $e){
             $this->setUploadErrorMessage('flash.error.file_upload');
             #$this->setUploadErrorMessage($e->getMessage());
