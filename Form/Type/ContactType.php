@@ -3,7 +3,7 @@
 /*
  * This file is part of the RPSContactBundle
  *
- * (c) Yos Okusanya <yos.okus@gmail.com>
+ * (c) Yos Okusanya <yos.okusanya@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
